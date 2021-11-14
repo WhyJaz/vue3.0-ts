@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, watchEffect, onMounted } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 import router from '../../router/index'
 
 import leftMenu from '../../configs/leftMenu'
