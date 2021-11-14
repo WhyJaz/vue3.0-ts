@@ -1,21 +1,43 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
+import RulesList from '../views/riskRules/index.vue'
+import RiskFactors from '../views/riskFactors/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/risk_base',
+    name: 'RiskRules',
+    component: RulesList,
+    redirect: '/risk_base/rules_list',
+    children: [
+      {
+        path: '/rules_list',
+        name: 'RulesList',
+        component: RulesList,
+      },
+      {
+        path: '/risk_factors',
+        name: 'RiskFactors',
+        component: RiskFactors
+      },
+    ]
   },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+  ...(route => {
+    const routesData: any = [];
+    route.keys().forEach(value => {
+      if (route(value).default instanceof Array) {
+        route(value).default.forEach((val: Object) => {
+          routesData.push(val)
+        })
+      } else {
+        routesData.push(route(value).default)
+      }
+    });
+    
+    return routesData
+  })(require.context('../views/', true, /\/route\.ts$/))
 ]
+
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
