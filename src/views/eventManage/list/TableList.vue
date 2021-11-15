@@ -3,7 +3,7 @@
     <LeftTree></LeftTree>
     <div class="content">
       <TableFilter></TableFilter>
-      <TableList :tableData="tableData" :tableOptions="tableOptions"></TableList>
+      <Table :tableData="tableData" :tableOptions="tableOptions"></Table>
     </div>
   </div>
 </template>
@@ -12,14 +12,14 @@
 import { defineComponent, h, resolveComponent , defineCustomElement } from 'vue'
 import LeftTree from './LeftTree.vue'
 import TableFilter from './TableFilter.vue'
-import TableList from '@/components/TableList.vue'
+import Table from '@components/Table.vue'
 
 export default defineComponent({
   name: '',
   components: {
     LeftTree,
     TableFilter,
-    TableList
+    Table
   },
   data() {
     return {

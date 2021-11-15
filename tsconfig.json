@@ -4,6 +4,7 @@
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
+    "allowJs": true, // 允许导入js文件
     "importHelpers": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
@@ -18,6 +19,15 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@hooks/*": [
+        "src/hooks/*"
+      ],
+      "@configs/*": [
+        "src/configs/*"
       ]
     },
     "lib": [

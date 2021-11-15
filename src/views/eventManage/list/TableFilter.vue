@@ -17,9 +17,8 @@
 <script lang="ts">
 import { defineComponent, ref, reactive } from 'vue'
 import FormItem from '@components/FormItem.vue'
-// import useTableFilter from '@hooks/useTableFilter'
-import useTableFilter from '../../hooks/useTableFilter'
-
+import useTableFilter from '@hooks/useTableFilter'
+// 
 const formList = [
   {
     title: '事件名称',

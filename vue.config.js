@@ -15,8 +15,8 @@ module.exports = {
     .set("@store",resolve("./src/store"))
     .set("@assets",resolve("./src/assets"))
     .set("@router",resolve("./src/router"))
-    .set("@configs",resolve("./src/configs"))
     .set("@components", resolve("./src/components"))
+    .set("@configs",resolve("./src/configs"))
  },
   configureWebpack: config => {
     config.devtool = '#source-map'
