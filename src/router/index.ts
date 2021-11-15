@@ -3,24 +3,6 @@ import RulesList from '../views/riskRules/index.vue'
 import RiskFactors from '../views/riskFactors/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/risk_base',
-    name: 'RiskRules',
-    component: RulesList,
-    redirect: '/risk_base/rules_list',
-    children: [
-      {
-        path: '/rules_list',
-        name: 'RulesList',
-        component: RulesList,
-      },
-      {
-        path: '/risk_factors',
-        name: 'RiskFactors',
-        component: RiskFactors
-      },
-    ]
-  },
   ...(route => {
     const routesData: any = [];
     route.keys().forEach(value => {

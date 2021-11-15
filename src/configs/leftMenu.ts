@@ -22,28 +22,23 @@ interface menuItem {
 
 const menus: Array<menuItem> = [
   {
-    title: '风控基础',
-    name: 'risk_base',
+    title: '风控设置',
+    name: 'riskSet',
     Icon: Location,
-    pathPrefix: 'risk_base',
+    pathPrefix: 'risk_set',
     children: [
       {
         title: '风控规则',
         name: 'riskRule',
-        path: '/risk_base/rules_list'
+        path: '/risk_set/rules_list'
       },
-      {
-        title: '风控因子',
-        name: 'riskFactor',
-        path: '/risk_base/risk_factors'
-      }
     ]
   },
   {
-    title: '事件信息',
-    name: 'eventInfo',
+    title: '风控方案',
+    name: 'riskPlan',
     Icon: Setting,
-    path: '/risk_factors'
+    path: '/risk_plan'
   },
   {
     title: '事件管理',
