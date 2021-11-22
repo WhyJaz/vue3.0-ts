@@ -5,6 +5,14 @@ function resolve(url) {
 }
 
 module.exports = {
+  devServer:{
+    proxy: {
+        '/api': {
+          target: 'http://192.168.1.131:3800',
+          changeOrigin: true,
+        }
+     }
+},
   lintOnSave: false,
   chainWebpack: (config) => {
     config.resolve.alias
@@ -17,6 +25,14 @@ module.exports = {
     .set("@router",resolve("./src/router"))
     .set("@components", resolve("./src/components"))
     .set("@configs",resolve("./src/configs"))
+
+    // config.devServer.port = 3000
+    //   config.devServer.proxy = {
+    //     '/api': {
+    //       target: 'http://192.168.1.131:3800',
+    //       changeOrigin: true,
+    //     }
+    //  }
  },
   configureWebpack: config => {
     config.devtool = '#source-map'

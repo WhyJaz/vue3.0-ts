@@ -35,16 +35,16 @@ const menus: Array<menuItem> = [
     ]
   },
   {
-    title: '风控方案',
-    name: 'riskPlan',
-    Icon: Setting,
-    path: '/risk_plan'
-  },
-  {
     title: '事件管理',
     name: 'EventManageList',
     Icon: Setting,
     path: '/event_manage/list'
+  },
+  {
+    title: '风控方案',
+    name: 'riskPlan',
+    Icon: Setting,
+    path: '/risk_plan/list'
   },
 ]
 

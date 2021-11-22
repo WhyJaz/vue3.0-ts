@@ -28,6 +28,9 @@
       ],
       "@configs/*": [
         "src/configs/*"
+      ],
+      "@router/*": [
+        "src/router/*"
       ]
     },
     "lib": [

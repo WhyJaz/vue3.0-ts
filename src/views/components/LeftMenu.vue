@@ -34,21 +34,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
-import router from '../../router/index'
+import { defineComponent, ref, onMounted, markRaw } from 'vue'
+import router from '@router/index'
 
-import leftMenu from '../../configs/leftMenu'
+import leftMenu from '@configs/leftMenu'
 
 export default defineComponent({
   components: {
   },
   setup() {
     const activeIndex = ref()
-    const menuConfig = ref(leftMenu)
+    const menuConfig = markRaw(leftMenu)
     const isCollapse = ref(false)
     
     onMounted(() => {
-      router.beforeEach((to, from) => {
+      router.beforeEach((to: any, from: any) => {
         activeIndex.value = to.path
       })
     })

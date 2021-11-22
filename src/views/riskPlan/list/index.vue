@@ -85,8 +85,16 @@ export default defineComponent({
       }
     }).then(res => {
       console.log(res, 'res');
-      
     })
+    // 表头配置项
+    // /api/base/layoutFunc/layoutQryByOpt/40000801
+// const cardTreeUrl = "/rms/manager/riskProposal/qryRiskPropList";
+// query: {
+//   qryCondition: ''
+// }
+    // 左侧树：
+    // riskProposalId: 8
+    // /rms/manager/riskProposal/qryRiskProposal
   }
 })
 </script>
