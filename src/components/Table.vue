@@ -1,7 +1,7 @@
 <template>
   <div class="table-wrapper">
       <el-table :data="tableData" border v-bind="attrs" style="width: 100%">
-        <el-table-column v-for="(item, index) in tableOptions" v-bind="item">
+        <el-table-column v-for="(item: any, index) in options" v-bind="item">
           <template v-if="item.header" #header>
             <component :is="item.header"></component>
           </template>
@@ -14,14 +14,39 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
+import axios from 'axios'
 
 export default defineComponent({
   name: '',
-  props: ['tableData', 'tableOptions'],
+  // props: {
+  //   tableData: [Array],
+  //   tableOptions: [Array],
+  //   tableSerialNum: [Number],
+  //   aa: [Number]
+  // },
+  props: ['tableData', 'tableOptions', 'tableSerialNum'],
   setup(props, { attrs }) {
+    const options = ref([])
+    onMounted(async () => {
+      const { data } = await axios({
+        method: 'get',
+        url: `/api/base/layoutFunc/layoutQryByOpt/${props.tableSerialNum}`
+      })
+      data.columnInfos.forEach((item: any) => {
+        const findItem = props.tableOptions.find((obj: any) => item.columnName === obj.prop)
+        if (findItem) {
+          Object.assign(item, findItem)
+        }
+        item.prop = item.columnName
+        item.label = item.displayName
+      })
+      options.value = data.columnInfos
+      console.log(options.value);
+    })
     return {
-      attrs
+      attrs,
+      options
     }
   },
   data() {
@@ -31,7 +56,6 @@ export default defineComponent({
   methods: {
   },
   mounted() {
-
   }
 })
 </script>

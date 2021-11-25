@@ -66,7 +66,7 @@ export default defineComponent({
 <style lang="less">
 .left-menu-wrapper {
   &:not(.el-menu--collapse) {
-    width: 200px;
+    min-width: 200px;
     min-height: 400px;
   }
 }

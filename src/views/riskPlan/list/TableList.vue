@@ -1,34 +1,50 @@
 <template>
-  <div class="event-manage-wrapper">
-    <LeftTree></LeftTree>
-    <div class="content">
-      <TableFilter></TableFilter>
-      <Table :tableData="tableData" :tableOptions="tableOptions"></Table>
-    </div>
-  </div>
+    <Table :tableData="tableData" :tableOptions="tableOptions" :tableSerialNum="tableSerialNum"></Table>
 </template>
 
 <script lang="ts">
-import { defineComponent, h, resolveComponent , defineCustomElement } from 'vue'
-import LeftTree from './LeftTree.vue'
-import TableFilter from './TableFilter.vue'
+import { defineComponent, h, resolveComponent, inject, watch, ref, getCurrentInstance } from 'vue'
 import Table from '@components/Table.vue'
-import API from 'axios'
+import axios from 'axios'
+import { URLS } from '../constants'
 
 
 export default defineComponent({
+  inheritAttrs: false,
   name: '',
+  props: ['attr'],
   components: {
-    LeftTree,
-    TableFilter,
-    Table
+    Table,
+  },
+  setup() {
+    const tableData = ref([])
+    const detailInfo: any = inject('detailInfo')
+   
+    const fetchTableData = async (idList: any) => {
+      const { data } = await axios({
+        method: 'post',
+        url: URLS.rightTableList,
+        data: {
+        riskRuleIdList: idList
+      }
+      })
+      tableData.value = data.list
+    }
+
+    watch(detailInfo, async (newVal, oldVal) => {
+      fetchTableData(newVal.riskControlClassIdList)
+    })
+    return {
+      tableData
+    }
   },
   data() {
     return {
+      tableSerialNum: 40000801,
       tableOptions: [
         {
-          prop: 'date',
-          label: '日期',
+          prop: 'riskCalcTypeId',
+          label: '序号',
           align: 'center',
           header: h(resolveComponent('el-tag'), {
             'type': 'primary'
@@ -41,45 +57,15 @@ export default defineComponent({
             }, v)
           },
         },
-        {
-          prop: 'name',
-          label: '名字',
-          fixed: 'right'
-        },
-        {
-          prop: 'address',
-          label: '地址',
-        },
-      ],
-      tableData: [
-        {
-          date: '2016-05-03',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-04',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-01',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
       ],
     }
   },
-  methods: {
+  watch: {
   },
-  mounted() {
-console.log(API, 'api');
-
+  methods: {
+    
+  },
+  mounted () {
   }
 })
 </script>

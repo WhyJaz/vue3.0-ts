@@ -2,7 +2,7 @@
   <div id="nav">导航栏</div>
   <div class="main">
     <LeftMenu></LeftMenu>
-    <div class="content">
+    <div class="container">
       <router-view></router-view>
     </div>
   </div>
@@ -26,7 +26,7 @@ export default defineComponent({
 <style lang="less" scoped>
 #nav {
   padding: 20px;
-  background-color: cyan;
+  background-color: #fff;
   a {
     font-weight: bold;
     color: #2c3e50;
@@ -39,10 +39,10 @@ export default defineComponent({
 .main {
   display: flex;
   height: 100%;
-  .content {
+  .container {
     flex: 8;
-    background-color: #fff;
-    margin: 20px;
+    background-color: #f5f6f7;
+    // margin: 10px;
   }
 }
 </style>

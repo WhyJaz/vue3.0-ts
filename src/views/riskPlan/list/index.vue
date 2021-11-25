@@ -2,99 +2,54 @@
   <div class="event-manage-wrapper">
     <LeftTree></LeftTree>
     <div class="content">
-      <TableFilter></TableFilter>
-      <Table :tableData="tableData" :tableOptions="tableOptions"></Table>
+      <Detail></Detail>
+      <TableList a="123"></TableList>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, h, resolveComponent , defineCustomElement } from 'vue'
+import { defineComponent, watch, ref, provide } from 'vue'
 import LeftTree from './LeftTree.vue'
-import TableFilter from './TableFilter.vue'
-import Table from '@components/Table.vue'
+import TableList from './TableList.vue'
+import Detail from './Detail.vue'
 import axios from 'axios'
+import { URLS } from '../constants'
+
 
 export default defineComponent({
   name: '',
   components: {
     LeftTree,
-    TableFilter,
-    Table
+    TableList,
+    Detail
+  },
+  setup(props, context) {
+    const selectedNodeKey = ref('')
+    let detailInfo = ref('')
+
+    provide('selectedNodeKey', selectedNodeKey)
+    provide('detailInfo', detailInfo)
+
+    watch(selectedNodeKey, async (newVal, oldVal) => {
+      console.log('change');
+      const { data } = await axios({
+        method: 'post',
+        url:URLS.rightDetail,
+        data: {
+        riskProposalId: newVal
+      }
+      })
+      detailInfo.value = data
+    })
   },
   data() {
     return {
-      tableOptions: [
-        {
-          prop: 'date',
-          label: '日期',
-          align: 'center',
-          header: h(resolveComponent('el-tag'), {
-            'type': 'primary'
-          }, '日期'),
-          content: (v: any, row: Object) => {
-            return h('span', {
-              style: {
-                color: 'red'
-              }
-            }, v)
-          },
-        },
-        {
-          prop: 'name',
-          label: '名字',
-          fixed: 'right'
-        },
-        {
-          prop: 'address',
-          label: '地址',
-        },
-      ],
-      tableData: [
-        {
-          date: '2016-05-03',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-04',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-01',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-      ],
     }
   },
   methods: {
   },
   mounted() {
-    console.log('jin');
-    
-    axios.post('/api/base/product/productListQryDrop', {}, {
-      headers: {
-        uuid: "crooteyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcm9vdCIsInN1YiI6InRlc3QiLCJleHAiOjE2MzgxODU5MTgsIm5iZiI6MTYzNzU4MTExOH0.Gh7deZKd_6NRooV2OFtvdLYVyBAoQGwtkuPsXkLCCGM"
-      }
-    }).then(res => {
-      console.log(res, 'res');
-    })
-    // 表头配置项
-    // /api/base/layoutFunc/layoutQryByOpt/40000801
-// const cardTreeUrl = "/rms/manager/riskProposal/qryRiskPropList";
-// query: {
-//   qryCondition: ''
-// }
-    // 左侧树：
-    // riskProposalId: 8
-    // /rms/manager/riskProposal/qryRiskProposal
   }
 })
 </script>
